@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2020-06-03 20:37:39
+ * @LastEditTime: 2020-06-04 00:07:19
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \Web-spider\routes\index.js
+ */ 
 var express = require('express');
 var router = express.Router();
 var http = require('https');
@@ -91,4 +99,8 @@ router.get('/getdata', function (req, Res, next) { // 浏览器端发来get请�
   }
 });
 
+router.post('/spider',(req,res,nex)=>{
+  console.log(req.body)
+  res.json({code:1})
+})
 module.exports = router;

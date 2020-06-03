@@ -1,0 +1,4 @@
+{
+    "watch": ["views"],
+    "extensions":["html"]
+  }

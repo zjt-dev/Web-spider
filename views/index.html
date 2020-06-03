@@ -1,0 +1,117 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-06-03 20:37:39
+ * @LastEditTime: 2020-06-04 00:35:23
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \Web-spider\views\index.html
+-->
+<%- include('./layout.html'); %>
+
+<body>
+  <div class="container">
+    <h1><%=title%></h1>
+    <div class="row">
+      <form class="column" id="form" onsubmit="return false">
+        <div class="row">
+          <div class="column column-50">
+            <label for="list_link">文章列表链接</label>
+            <input type="text" placeholder="" id="list_link" data-easyform="regex:^[a-zA-z]+://[^\s]*$;real-time;"
+              name="list_link" data-message="请输入正确的网址" data-easytip="position:right;class:easy-blue;">
+            <label for="page_start">起始页</label>
+            <input type="text" placeholder="1" id="page_start" data-easyform="number;real-time" data-message="请输入数字"
+              name="page_start" data-easytip="class:easy-blue">
+            <label for="target_tit">要获取的文章标题的Class/ID</label>
+            <input type="text" placeholder="" id="target_tit" data-easyform="real-time" data-message="必选项！"
+              name="target_tit" data-easytip="class:easy-blue">
+          </div>
+          <div class="column column-50">
+            <label for="list_link_class">要获取的文章链接的Class/ID</label>
+            <input type="text" placeholder="" id="list_link_class" data-easyform="real-time" data-message="必选项！"
+            name="list_link_class"  data-easytip="class:easy-blue">
+            <label for="page_end">结束页</label>
+            <input type="text" placeholder="1" id="page_end" data-easyform="number;real-time" data-message="请输入数字"
+            name="page_end"  data-easytip="class:easy-blue">
+            <label for="target_content">要获取的文章内容的Class/ID</label>
+            <input type="text" placeholder="" id="target_content" data-easyform="real-time" data-message="必选项！"
+            name="target_content"  data-easytip="class:easy-blue">
+          </div>
+        </div>
+        <div class="row">
+          <div class="column float-left">
+            <label for="page_start">输出类型（html/markdown）</label>
+            <div class="row pt-2">
+              <div class="column column-33">
+                <input type="radio" name="outputType" value="html" id="type_html" checked>
+                <label class="label-inline" for="type_html">html</label>
+              </div>
+              <div class="column column-33">
+                <input type="radio" name="outputType" value="md" id="type_md">
+                <label class="label-inline" for="type_md">md</label>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+              <input id="send" class="column column-33 column-offset-66 button-primary" type="submit" value="开爬！">
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="column">
+        <p>sdfsd</p>
+        <p>sdfsd</p>
+        <p>sdfsd</p>
+        <p>sdfsd</p>
+        <p>sdfsd</p>
+        <p>sdfsd</p>
+        <p>sdfsd</p>
+        <p>sdfsd</p>
+        <p>sdfsd</p>
+        <p>sdfsd</p>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
+  <script src="/javascript/easyform/easyform.js"></script>
+  <script>
+    $(document).ready(function () {
+      var v = $("#form").easyform()
+      $("#form").on("submit",function(){
+        getData()
+        event.preventDefault()
+      })
+      function getData(){
+        var list_link = $("#list_link").val(),
+        list_link_class = $("#list_link_class").val(),
+        page_start = $("#page_start").val(),
+        page_end = $("#page_end").val(),
+        target_tit = $("#target_tit").val(),
+        target_content = $("#target_content").val(),
+        outputType = $('input:radio[name="outputType"]:checked').val()
+        $.post({
+          url: '/spider',
+          data: {
+            list_link,
+            list_link_class,
+            page_start,
+            page_end,
+            target_tit,
+            target_content,
+            outputType
+          },
+          success(res) {
+            console.log(res);
+          }
+        })
+      }
+
+    })
+    // $.get({
+    //   url:`/getdata?page=1-1&type=md`,
+    //   success(res){
+    //     console.log(res)
+    //   }
+    // })
+  </script>
+</body>

@@ -1,17 +1,32 @@
+/*
+ * @Author: your name
+ * @Date: 2020-06-03 20:37:39
+ * @LastEditTime: 2020-06-03 23:22:26
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \Web-spider\app.js
+ */ 
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var ejs = require('ejs')
+var bodyParser = require('body-parser')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
-
+app.use(bodyParser.urlencoded({ extended: false })) 
+app.use(bodyParser.json())   
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('views', path.join(__dirname, 'views'))
+// 让 ejs 模板文件 使用 扩展名 为 html 的文件
+app.engine('.html', ejs.__express)
+// app.set('view engine', 'html')
+// app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'html');
 
 app.use(logger('dev'));
 app.use(express.json());
