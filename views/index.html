@@ -1,10 +1,10 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-03 20:37:39
- * @LastEditTime: 2020-06-04 00:35:23
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-06-04 12:13:00
+ * @LastEditors: ZJT
  * @Description: In User Settings Edit
- * @FilePath: \Web-spider\views\index.html
+ * @FilePath: \Reptile\views\index.html
 -->
 <%- include('./layout.html'); %>
 
@@ -12,7 +12,8 @@
   <div class="container">
     <h1><%=title%></h1>
     <div class="row">
-      <form class="column" id="form" onsubmit="return false">
+      <form class="column column-50" id="form" onsubmit="return false">
+        <h3>多页面爬取</h3>
         <div class="row">
           <div class="column column-50">
             <label for="list_link">文章列表链接</label>
@@ -54,29 +55,59 @@
             <div class="row">
               <input id="send" class="column column-33 column-offset-66 button-primary" type="submit" value="开爬！">
             </div>
+            <div class="row mt-2">
+              <input id="download" class="column column-33 column-offset-66 button-primary" type="button" value="Download">
+            </div>
           </div>
         </div>
       </form>
-      <div class="column">
-        <p>sdfsd</p>
-        <p>sdfsd</p>
-        <p>sdfsd</p>
-        <p>sdfsd</p>
-        <p>sdfsd</p>
-        <p>sdfsd</p>
-        <p>sdfsd</p>
-        <p>sdfsd</p>
-        <p>sdfsd</p>
-        <p>sdfsd</p>
-      </div>
+      <form class="column column-33 column-offset-10" id="singleform" onsubmit="return false">
+        <h3>单页面爬取</h3>
+        <div class="row">
+          <div class="column">
+            <label for="sigle_target_link">文章链接</label>
+            <input type="text" placeholder="" id="sigle_target_link" data-easyform="regex:^[a-zA-z]+://[^\s]*$;real-time;"
+              name="sigle_target_link" data-message="请输入正确的网址" data-easytip="position:right;class:easy-blue;">
+            <label for="single_target_tit">要获取的文章标题的Class/ID</label>
+            <input type="text" placeholder="1" id="single_target_tit" data-easyform="number;real-time" data-message="请输入数字"
+              name="single_target_tit" data-easytip="class:easy-blue">
+            <label for="single_target_content">要获取的文章内容的Class/ID</label>
+            <input type="text" placeholder="" id="single_target_content" data-easyform="real-time" data-message="必选项！"
+              name="single_target_content" data-easytip="class:easy-blue">
+          </div>
+        </div>
+        <div class="row">
+          <div class="column float-left">
+            <label for="page_start">输出类型（html/markdown）</label>
+            <div class="row pt-2">
+              <div class="column column-33">
+                <input type="radio" name="outputType" value="html" id="type_html" checked>
+                <label class="label-inline" for="type_html">html</label>
+              </div>
+              <div class="column column-33">
+                <input type="radio" name="outputType" value="md" id="type_md">
+                <label class="label-inline" for="type_md">md</label>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+              <input id="send" class="column column-33 column-offset-66 button-primary" type="submit" value="开爬！">
+            </div>
+            <div class="row mt-2">
+              <input id="download" class="column column-33 column-offset-66 button-primary" type="button" value="Download">
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
+  </a></h1>
   <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
   <script src="/javascript/easyform/easyform.js"></script>
   <script>
     $(document).ready(function () {
-      var v = $("#form").easyform()
+      $("#form").easyform()
       $("#form").on("submit",function(){
         getData()
         event.preventDefault()
@@ -106,12 +137,7 @@
         })
       }
 
+      $("#singleform").easyform()
     })
-    // $.get({
-    //   url:`/getdata?page=1-1&type=md`,
-    //   success(res){
-    //     console.log(res)
-    //   }
-    // })
   </script>
 </body>

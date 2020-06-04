@@ -1,26 +1,41 @@
 /*
  * @Date: 2020-06-03 16:14:11
  * @LastEditors: ZJT
- * @LastEditTime: 2020-06-03 16:55:45
+ * @LastEditTime: 2020-06-04 13:53:52
  * @FilePath: \Reptile\toMd.js
  */
-var fs = require('fs');
-var TurndownService = require('turndown');
-var turndownService = new TurndownService();
-fs.readdir('./note', function (err, files) {
-  files.forEach(v => {
-    fs.readFile(`./note/${v}`, 'utf8', function (err, date) {
-      var markdown = turndownService.turndown(date)
-      var mdFilename = v.replace(/(.*\/)*([^.]+).*/ig, "$2") //去后缀
-      fs.writeFileSync(`./noteMd/${mdFilename}.md`, markdown, function (err) {
-        if (err) throw err
-      })
-    })
-  })
-})
-// fs.readFile('./note/- 半小时.html','utf8',function(err,date){
-//   var markdown = turndownService.turndown(date)
-//   fs.writeFileSync('./noteMd/- 半小时.md',markdown,function(err){
-//     if (err) throw err
-//   })
-// })
+
+// var fs = require('fs');
+// var archiver = require('archiver');
+// var output = fs.createWriteStream(__dirname + '/public/source/note.zip');
+// var archive = archiver('zip', {
+//   zlib: { level: 9 } // Sets the compression level.
+// });
+// output.on('close', function() {
+//   console.log(archive.pointer() + ' total bytes');
+//   console.log('archiver has been finalized and the output file descriptor has closed.');
+// });
+// output.on('end', function() {
+//   console.log('Data has been drained');
+// });
+// archive.on('warning', function(err) {
+//   if (err.code === 'ENOENT') {
+//     // log warning
+//   } else {
+//     // throw error
+//     throw err;
+//   }
+// });
+
+// archive.on('error', function(err) {
+//   throw err;
+// });
+// archive.pipe(output);
+// archive.directory('note/', false);
+// archive.finalize();
+function miniZip (n){
+  console.log(n)
+}
+exports.miniZip = miniZip
+exports.name = 'sdfdsfs'
+

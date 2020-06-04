@@ -1,10 +1,10 @@
 /*
  * @Author: your name
  * @Date: 2020-06-03 20:37:39
- * @LastEditTime: 2020-06-03 23:22:26
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-06-04 09:37:54
+ * @LastEditors: ZJT
  * @Description: In User Settings Edit
- * @FilePath: \Web-spider\app.js
+ * @FilePath: \Reptile\app.js
  */ 
 var createError = require('http-errors');
 var express = require('express');
@@ -35,7 +35,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
