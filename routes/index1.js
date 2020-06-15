@@ -1,11 +1,11 @@
 /*
  * @Author: your name
  * @Date: 2020-06-03 20:37:39
- * @LastEditTime: 2020-06-15 18:27:32
- * @LastEditors: ZJT
+ * @LastEditTime: 2020-06-15 22:28:09
+ * @LastEditors: zjt
  * @Description: In User Settings Edit
- * @FilePath: \codeTest\Reptile\routes\index1.js
- */ 
+ * @FilePath: \Web-spider\routes\index1.js
+ */
 var express = require('express');
 var router = express.Router();
 var http = require('https');
@@ -22,70 +22,72 @@ router.get('/', function (req, res, next) {
     title: '简单nodejs爬虫'
   });
 });
-router.get('/getdata', function (req, Res, next) { // 浏览器端发来get请求
-  getAllLink()
-});
-function getAllLink(list_link,list_link_class,pageStart,pageEnd,target_tit,target_content,outputType,resCb) {
+
+function getAllLink(list_link, list_link_class, pageStart, pageEnd, target_tit, target_content, outputType, resCb) {
   var promises = [];
   var dir = Date.now();
   var type;
   type = outputType == 'html' ? 'note' : 'noteMd'
-  untils.hasDir(`./${type}/${dir}`).then(res=>{
-    fs.mkdir(`./${type}/${dir}`,function(err){
-      if(err) return false
+  untils.hasDir(`./${type}/${dir}`).then(res => {
+    fs.mkdir(`./${type}/${dir}`, function (err) {
+      if (err) return false
     })
   })
   for (let i = pageStart; i <= pageEnd; i++) {
-    promises.push(geturl(list_link,i,list_link_class));
+    promises.push(geturl(list_link, i, list_link_class));
   }
-  // geturl(list_link,1,list_link_class).then(function(ls){
-  //   console.log(ls);
-  // }).catch(function(error){
-  //     console.log(error);
-  //     break;
-  // })
-  // console.log(promises);
   Promise.all(promises).then(rs => {
     rs.forEach(v => {
       for (let k = 0; k < v.length; k++) {
         reptile(v[k], function ($) {
-          var tit = $('.'+target_tit).text().trim();
+          var tit = $('.' + target_tit).text().trim();
           // 以标题为文件名，去除特殊符号
           filetitle = tit.replace(/[&\/\\#,\-+$~%.'":*?<>{}]/g, '').trim();
           if (outputType == "html") { //输出html
-            fs.writeFileSync(`./note/${dir}/${filetitle}.html`, $('.'+target_content).html(), function (err) {
+            fs.writeFile(`./note/${dir}/${filetitle}.html`, $('.' + target_content).html(), function (err) {
               if (err) {
                 throw err;
+              } else {
+                if (k == v.length - 1) {
+                  untils.zipHandler(type, dir).then(rs => {
+                    console.log(rs);
+                  })
+                }
               }
             });
           } else { //输出md 
-            var markdown = turndownService.turndown($('.'+target_content).html())
-            fs.writeFileSync(`./noteMd/${dir}/${filetitle}.md`, markdown, function (err) {
-              if (err) throw err
+            var markdown = turndownService.turndown($('.' + target_content).html())
+            fs.writeFile(`./noteMd/${dir}/${filetitle}.md`, markdown, function (err) {
+              if (err) {
+                throw err;
+              } else {
+                if (k == v.length - 1) {
+                  untils.zipHandler(type, dir).then(rs => {
+                    console.log(rs);
+                  })
+                }
+              }
             })
           }
         })
       }
     })
-    untils.zipHandler(type,dir).then(rs=>{
-      console.log(rs);
-    })
     resCb()
-  }).catch(err=>{
+  }).catch(err => {
     resCb(err)
   })
 }
 // 获取每页的文章链接
-function geturl(url,i,list_link_class) {
+function geturl(url, i, list_link_class) {
   return new Promise(function (resolve, reject) {
     reptile(`${url}?page=${i}`, function ($) {
-      if( $('.'+list_link_class).length!=0){
+      if ($('.' + list_link_class).length != 0) {
         var arr = []
-        $('.'+list_link_class).each(function (i, v) {
+        $('.' + list_link_class).each(function (i, v) {
           arr.push($(this).attr('href'))
         })
         resolve(arr)
-      }else{
+      } else {
         reject('未找到要获取的文章链接的Class')
       }
     })
@@ -116,11 +118,17 @@ router.post('/spider',(req,res,nex)=>{
   // console.log(target_tit);
   // console.log(target_content);
   // console.log(outputType);
-  getAllLink(list_link,list_link_class,page_start,page_end,target_tit,target_content,outputType,function(err){
-    if(err){
-      res.json({code:0,msg:err})
-    }else{
-      res.json({code:0,msg:'success'})
+  getAllLink(list_link, list_link_class, page_start, page_end, target_tit, target_content, outputType, function (err) {
+    if (err) {
+      res.json({
+        code: 0,
+        msg: err
+      })
+    } else {
+      res.json({
+        code: 0,
+        msg: 'success'
+      })
     }
   })
 })
