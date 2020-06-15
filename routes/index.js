@@ -1,10 +1,10 @@
 /*
  * @Author: your name
  * @Date: 2020-06-03 20:37:39
- * @LastEditTime: 2020-06-04 09:36:10
+ * @LastEditTime: 2020-06-15 15:05:16
  * @LastEditors: ZJT
  * @Description: In User Settings Edit
- * @FilePath: \Reptile\routes\index.js
+ * @FilePath: \codeTest\Reptile\routes\index.js
  */ 
 var express = require('express');
 var router = express.Router();

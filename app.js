@@ -1,10 +1,10 @@
 /*
  * @Author: your name
  * @Date: 2020-06-03 20:37:39
- * @LastEditTime: 2020-06-04 09:37:54
+ * @LastEditTime: 2020-06-15 15:06:26
  * @LastEditors: ZJT
  * @Description: In User Settings Edit
- * @FilePath: \Reptile\app.js
+ * @FilePath: \codeTest\Reptile\app.js
  */ 
 var createError = require('http-errors');
 var express = require('express');
@@ -14,7 +14,7 @@ var logger = require('morgan');
 var ejs = require('ejs')
 var bodyParser = require('body-parser')
 
-var indexRouter = require('./routes/index');
+var indexRouter = require('./routes/index1');
 var usersRouter = require('./routes/users');
 
 var app = express();
