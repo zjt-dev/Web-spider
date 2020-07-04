@@ -1,37 +1,23 @@
 /*
  * @Date: 2020-06-03 16:14:11
  * @LastEditors: ZJT
- * @LastEditTime: 2020-06-15 17:57:00
- * @FilePath: \codeTest\Reptile\toMd.js
+ * @LastEditTime: 2020-06-23 17:15:53
+ * @FilePath: \Reptile\toMd.js
  */
 
 var fs = require('fs');
-var archiver = require('archiver');
-var output = fs.createWriteStream(__dirname + '/public/source/note.zip');
-var archive = archiver('zip', {
-  zlib: { level: 9 } // Sets the compression level.
+var TurndownService = require('turndown'); //html转md
+var turndownPluginGfm = require('joplin-turndown-plugin-gfm') //table优化插件
+ 
+var gfm = turndownPluginGfm.gfm
+var turndownService = new TurndownService({
+  headingStyle:"atx",
+  codeBlockStyle:"fenced",
 });
-output.on('close', function() {
-  console.log(archive.pointer() + ' total bytes');
-  console.log('archiver has been finalized and the output file descriptor has closed.');
-});
-output.on('end', function() {
-  console.log('Data has been drained');
-});
-archive.on('warning', function(err) {
-  if (err.code === 'ENOENT') {
-    // log warning
-  } else {
-    // throw error
-    throw err;
-  }
-});
-
-archive.on('error', function(err) {
-  throw err;
-});
-archive.pipe(output);
-archive.directory('note/', false);
-archive.finalize();
-
-
+turndownService.use(gfm)
+fs.readFile('./eventloop.html',function(err,data){
+  var markdown = turndownService.turndown(data.toString())
+  fs.writeFileSync(`eventloop.md`, markdown, function (err) {
+    if (err) throw err
+  })
+})

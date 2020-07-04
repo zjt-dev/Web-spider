@@ -2,32 +2,32 @@
 
 <body>
   <div class="container">
-    <h1><%=title%></h1>
     <div class="row">
-      <form class="column column-50" id="form" onsubmit="return false">
-        <h3>多页面爬取</h3>
+      <form class="column column-66" id="form" onsubmit="return false">
+        <h1><%=title%> </h1>
+        <h3>多链接爬取 <small class="exampleBtn">查看示例</small></h3>
         <div class="row">
           <div class="column column-50">
             <label for="list_link">文章列表链接</label>
             <input type="text" placeholder="" id="list_link" data-easyform="regex:^[a-zA-z]+://[^\s]*$;real-time;"
               name="list_link" data-message="请输入正确的网址" data-easytip="position:right;class:easy-blue;">
             <label for="page_start">起始页</label>
-            <input type="text" placeholder="1" id="page_start" data-easyform="number;real-time" data-message="请输入数字"
+            <input type="text" value="1" id="page_start" data-easyform="number;real-time" data-message="请输入数字"
               name="page_start" data-easytip="class:easy-blue">
-            <label for="target_tit">要获取的文章标题的Class/ID</label>
+            <label for="target_tit">文章标题的Class/ID(a标签)</label>
             <input type="text" placeholder="" id="target_tit" data-easyform="real-time" data-message="必选项！"
               name="target_tit" data-easytip="class:easy-blue">
           </div>
           <div class="column column-50">
-            <label for="list_link_class">要获取的文章链接的Class/ID</label>
+            <label for="list_link_class">文章链接的Class/ID(a标签)</label>
             <input type="text" placeholder="" id="list_link_class" data-easyform="real-time" data-message="必选项！"
-            name="list_link_class"  data-easytip="class:easy-blue">
+              name="list_link_class" data-easytip="class:easy-blue">
             <label for="page_end">结束页</label>
-            <input type="text" placeholder="1" id="page_end" data-easyform="number;real-time" data-message="请输入数字"
-            name="page_end"  data-easytip="class:easy-blue">
-            <label for="target_content">要获取的文章内容的Class/ID</label>
+            <input type="text" value="1" id="page_end" data-easyform="number;real-time" data-message="请输入数字"
+              name="page_end" data-easytip="class:easy-blue">
+            <label for="target_content">文章内容的Class/ID(a标签)</label>
             <input type="text" placeholder="" id="target_content" data-easyform="real-time" data-message="必选项！"
-            name="target_content"  data-easytip="class:easy-blue">
+              name="target_content" data-easytip="class:easy-blue">
           </div>
         </div>
         <div class="row">
@@ -45,73 +45,103 @@
             </div>
             <div class="clearfix"></div>
             <div class="row">
-              <input id="send" class="column column-33 column-offset-66 button-primary" type="submit" value="开爬！">
-            </div>
-            <div class="row mt-2">
-              <input id="download" class="column column-33 column-offset-66 button-primary" type="button" value="Download">
+              <button id="send" class="ladda-button column column-33 column-offset-66 button-primary" type="submit"
+                data-color="purple" data-style="expand-left">开爬！</button>
             </div>
           </div>
         </div>
       </form>
-      <form class="column column-33 column-offset-10" id="singleform" onsubmit="return false">
-        <h3>单页面爬取</h3>
-        <div class="row">
-          <div class="column">
-            <label for="sigle_target_link">文章链接</label>
-            <input type="text" placeholder="" id="sigle_target_link" data-easyform="regex:^[a-zA-z]+://[^\s]*$;real-time;"
-              name="sigle_target_link" data-message="请输入正确的网址" data-easytip="position:right;class:easy-blue;">
-            <label for="single_target_tit">要获取的文章标题的Class/ID</label>
-            <input type="text" placeholder="1" id="single_target_tit" data-easyform="number;real-time" data-message="请输入数字"
-              name="single_target_tit" data-easytip="class:easy-blue">
-            <label for="single_target_content">要获取的文章内容的Class/ID</label>
-            <input type="text" placeholder="" id="single_target_content" data-easyform="real-time" data-message="必选项！"
-              name="single_target_content" data-easytip="class:easy-blue">
-          </div>
-        </div>
-        <div class="row">
-          <div class="column float-left">
-            <label for="page_start">输出类型（html/markdown）</label>
-            <div class="row pt-2">
-              <div class="column column-33">
-                <input type="radio" name="outputType" value="html" id="type_html" checked>
-                <label class="label-inline" for="type_html">html</label>
-              </div>
-              <div class="column column-33">
-                <input type="radio" name="outputType" value="md" id="type_md">
-                <label class="label-inline" for="type_md">md</label>
-              </div>
-            </div>
-            <div class="clearfix"></div>
-            <div class="row">
-              <input id="send" class="column column-33 column-offset-66 button-primary" type="submit" value="开爬！">
-            </div>
-            <div class="row mt-2">
-              <input id="download" class="column column-33 column-offset-66 button-primary" type="button" value="Download">
-            </div>
-          </div>
-        </div>
-      </form>
+      <div class="column column-33">
+        <div class="oneloader loader"></div>
+        <h4> <b>每日一句</b> </h4>
+        <i class="iconfont">&#xe7a8;</i>
+        <img class="oneimg" src="" alt="">
+        <audio class="oneaudio hidden" src="" id="audio" controls="controls"></audio>
+      </div>
+    </div>
+    <!-- 实例 -->
+    <div class="examples">
+      <div class="examplesHeader"> <h3>以博客园为例</h3>  <span class="close">X</span></div>
+      <table>
+        <tbody>
+          <tr>
+            <td><b>文章列表链接</b></td>
+            <td>https://www.cnblogs.com/asenper/default.html<b>?page=</b></td>
+          </tr>
+          <tr>
+            <td><b>文章链接的Class/ID(a标签)</b></td>
+            <td>postTitle2（前边需要加上类 · or #）</td>
+          </tr>
+          <tr>
+            <td><b>起始页</b></td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td><b>结束页</b></td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td><b>文章标题的Class/ID(a标签)</b></td>
+            <td>.postTitle2 （前边需要加上类 · or #）</td>
+          </tr>
+          <tr>
+            <td><b>文章内容的Class/ID(a标签)</b></td>
+            <td>.blogpost-body （前边需要加上类 · or #）</td>
+          </tr>
+          <tr>
+            <td><b>输出类型</b></td>
+            <td> html文件、md文件 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 爬取完内容后以html或md打包下载 </td>
+          </tr>
+        </tbody>
+      </table>
+      <a href="http://cloud.asenper.cn/20200704203035.png">
+        <img src="http://cloud.asenper.cn/20200704203035.png" alt="">
+      </a>
+      <a href="http://cloud.asenper.cn//20200704203034.png">
+      <img src="http://cloud.asenper.cn//20200704203034.png" alt="">
+      </a>
     </div>
   </div>
-  </a></h1>
+  <div class="mask" hidden>
+    <div class="loader"></div>
+  </div>
   <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
   <script src="/javascript/easyform/easyform.js"></script>
+  <script src="/javascript/index-bundle.js"></script>
   <script>
     $(document).ready(function () {
+      $(".iconfont").click(function () {
+        var audio = document.querySelector("#audio")
+        audio.play()
+      })
       $("#form").easyform()
-      $("#form").on("submit",function(){
+      var l = ladda.create(document.querySelector('#send'));
+      $("#form").on("submit", function () {
+        l.start()
         getData()
         event.preventDefault()
       })
-      function getData(){
+      $(".exampleBtn").click(function(){
+        $('.examples').animate({
+          height:"550px",
+          width:"100%"
+        })
+      })
+      $(".close").click(function(){
+        $('.examples').animate({
+          height:0,
+          width:0
+        })
+      })
+
+      function getData() {
         var list_link = $("#list_link").val(),
-        list_link_class = $("#list_link_class").val(),
-        page_start = $("#page_start").val(),
-        page_end = $("#page_end").val(),
-        target_tit = $("#target_tit").val(),
-        target_content = $("#target_content").val(),
-        outputType = $('input:radio[name="outputType"]:checked').val()
+          list_link_class = $("#list_link_class").val(),
+          page_start = $("#page_start").val(),
+          page_end = $("#page_end").val(),
+          target_tit = $("#target_tit").val(),
+          target_content = $("#target_content").val(),
+          outputType = $('input:radio[name="outputType"]:checked').val()
         $.post({
           url: '/spider',
           data: {
@@ -124,12 +154,30 @@
             outputType
           },
           success(res) {
-            console.log(res);
-          }
+            l.stop()
+            if(res.code==1){
+              location.href += res.msg.path
+            }else{
+              alert(res.msg)
+            }
+          },
         })
       }
 
-      $("#singleform").easyform()
+      // 每日一句
+      $.get({
+        url: 'http://open.iciba.com/dsapi/',
+        method: 'GET',
+        dataType: 'jsonp',
+        success(res) {
+          $(".oneloader").attr('hidden', 'true')
+          $(".oneimg").attr('src', res.fenxiang_img)
+          $(".oneaudio").attr('src', res.tts)
+        },
+        error(err) {
+          alert("网络错误，请检查您的网络")
+        }
+      })
     })
   </script>
 </body>

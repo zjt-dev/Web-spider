@@ -18,9 +18,11 @@
     "express": "^4.16.4",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
+    "joplin-turndown-plugin-gfm": "^1.0.12",
     "morgan": "~1.9.1",
     "request": "^2.88.2",
     "turndown": "^6.0.0",
+    "turndown-plugin-gfm": "^1.0.2",
     "utf-8-validate": "^5.0.2"
   }
 }

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-06-03 20:37:39
- * @LastEditTime: 2020-06-15 15:06:26
+ * @LastEditTime: 2020-07-04 21:02:51
  * @LastEditors: ZJT
  * @Description: In User Settings Edit
  * @FilePath: \codeTest\Reptile\app.js
@@ -14,8 +14,7 @@ var logger = require('morgan');
 var ejs = require('ejs')
 var bodyParser = require('body-parser')
 
-var indexRouter = require('./routes/index1');
-var usersRouter = require('./routes/users');
+var indexRouter = require('./routes/index');
 
 var app = express();
 app.use(bodyParser.urlencoded({ extended: false })) 
