@@ -35,12 +35,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 // app.use('/users', usersRouter);
-
+app.disable('etag');
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
+app.all('*', function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin','*');
+	res.setHeader('Access-Control-Allow-Methods', 'GET, POST');  
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');  
+    // res.setHeader("Content-Type", "application/json;charset=utf-8"); 
+    next();
+});
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
