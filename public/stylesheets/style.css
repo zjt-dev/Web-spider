@@ -129,6 +129,6 @@ small {
   cursor: pointer;
 }
 
-small:hover {
+small.exampleBtn:hover {
   color: #9b4dca;
 }
